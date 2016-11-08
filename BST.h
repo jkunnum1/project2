@@ -10,6 +10,8 @@ struct Node {
 	T value;
 	Node *right;
 	Node *left;
+
+	Node() : right(NULL), left(NULL) {}
 };
 
 template <class T>
