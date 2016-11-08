@@ -12,6 +12,17 @@ int main(int argc, char const *argv[])
 	first.insert(10);
 	first.insert(1);
 	first.remove(4);
+
+	// bool test =	first.find(3);
+	// cout << "test: " << test << endl;
+	// if(test == true)
+	// {
+	// 	cout << "3 was found" << endl;
+	// }
+	// else
+	// {
+	// 	cout << "3 was not found" << endl;
+	// }
 	first.display();
 	first.find(x);
 	return 0;

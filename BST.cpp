@@ -55,7 +55,37 @@ bool BST<T>::remove(const T& element) {
 template <class T>
 bool BST<T>::find(const T& element) const {
 	cout << "in the find function" << endl;
-   	return true;
+
+	bool found = false;
+
+	if (head == NULL) // empty tree
+	{
+		return false;
+	}
+	else
+	{
+		Node<T> *temp = head;
+
+		while (temp)
+		{
+			if (temp->value > element)
+			{
+				temp = temp->left;
+			}
+			else if (temp->value < element)
+			{
+				temp = temp->right;
+			}
+			else
+			{
+				found = true;
+				break;
+			}
+		}
+	}
+
+	return found;
+
 }
 
 template <class T>
