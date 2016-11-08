@@ -59,8 +59,19 @@ bool BST<T>::find(const T& element) const {
 }
 
 template <class T>
+void BST<T>::displayHelper(Node<T> *node) const{
+	if (node == NULL)
+		return;
+	displayHelper(node->left);
+	cout << node->value << " ";
+	displayHelper(node->right);
+}
+
+template <class T>
 void BST<T>::display() const {
 	cout << "in the display function" << endl;
+	displayHelper(head);
+	cout << endl;
 }
 
 template class BST<int>;

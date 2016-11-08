@@ -9,6 +9,8 @@ int main(int argc, char const *argv[])
 	first.insert(3);
 	first.insert(8);
 	first.insert(8);
+	first.insert(10);
+	first.insert(1);
 	first.remove(4);
 	first.display();
 	first.find(x);

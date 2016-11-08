@@ -24,6 +24,7 @@ public:
 	bool remove(const T&);
 	bool find(const T&) const;
 	void display() const; // inorder display
+	void displayHelper(Node<T> *node) const;
 };
 
 #endif
