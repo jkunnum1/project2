@@ -49,6 +49,75 @@ bool BST<T>::insert(const T& element) {
 template <class T>
 bool BST<T>::remove(const T& element) {
 	cout << "in the remove function" << endl;
+	if (head == NULL) {
+		cout << "no valid in the tree" << endl;
+		return false;
+	}
+	else {
+		Node<T> *temp = head;
+		Node<T> *prev;
+		while (temp) {
+			
+			if (temp->value > element) {
+				prev = temp;
+				temp = temp->left;
+				
+			} else if (temp->value < element) {
+				prev = temp;
+				temp = temp->right;
+
+			} else {
+				break;
+			}
+		}
+		cout << "temp: " << temp->value << "   prev: " << prev->value << endl;
+		// if the node has one or less children
+		if (temp->left == NULL) {
+			if (prev->value > temp->value) {
+				prev->left = temp->right;
+				delete temp;
+			} else if (prev->value < temp->value) {
+				prev->right = temp->right;
+				delete temp;
+			}
+		} else if (temp->right == NULL) {
+			if (prev->value > temp->value) {
+				prev->left = temp->left;
+				delete temp;
+			} else if (prev->value < temp->value) {
+				prev->right = temp->left;
+				delete temp;
+			}
+		}
+		// now the case that are 2 children
+		// need to find the minimum value node and put that in place 
+		else {
+			Node<T> * smallest = temp;
+			while (smallest->left != NULL) {
+				smallest = smallest->left;
+			}
+			// now smallest has the smallest value of the tree after the node
+			// that is being removed
+			if (prev->value < temp->value) {
+				if (temp->left != smallest)
+					smallest->left = temp->left;
+				else
+					smallest->left = NULL;
+				smallest->right = temp->right;
+				prev->right = smallest;
+				delete temp;
+			} else if (prev->value > temp->value) {
+				if (temp->left != smallest)
+					smallest->left = temp->left;
+				else
+					smallest->left = NULL;
+				smallest->right = temp->right;
+				prev->left = smallest;
+				delete temp;
+			}
+
+		}
+	}
    	return true;
 }
 
