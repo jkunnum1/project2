@@ -22,6 +22,7 @@ public:
 	BST();
 	bool insert(const T&);
 	bool remove(const T&);
+	Node<T> *removeHelper(Node<T> *root, const T&);
 	bool find(const T&) const;
 	void display() const; // inorder display
 	void displayHelper(Node<T> *node) const;

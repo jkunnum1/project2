@@ -4,6 +4,9 @@
 #include <ratio>
 
 #include "BST.cpp"
+using namespace std::chrono;
+
+#define LOOP 10000
 
 template <typename T>
 void helpermakeBBST(BST<T> &bst, T left, T right)
@@ -69,8 +72,26 @@ int main(int argc, char const *argv[])
 	// makeUBST(int size, T firstValue)
 	// the purpose of inserting a first value is so that the function knows what
 	// type of BST to return
-	BST<int> test = makeBBST(1000);
-	BST<int> test2 = makeUBST(1000, 1);
+	int x = 15;
+	int y = 2;
+	int z = x / y;
+	cout << z << endl;
+	double elapsed_sec;
+	for (int i = 0; i < 5; i++) {
+		BST<int> test = makeBBST(LOOP);
+		clock_t begin = clock();
+		test.remove(LOOP / 2);
+		clock_t end = clock();
+		elapsed_sec += (double(end-begin) / CLOCKS_PER_SEC);
+	}
+	double average = elapsed_sec / 5;
+	cout << "Looping average " << LOOP << " times took " << average << " seconds.";
+	cout << endl;
+
+	// BST<int> test2 = makeUBST(1000, 1);
+	
+
+
 	//BBST.display();
 	// BST<int> first;
 	// int x = 5;
@@ -85,22 +106,21 @@ int main(int argc, char const *argv[])
 	// first.display();
 	// first.find(x);
 	//
-	// //Calculate time duration
-	// using namespace std::chrono;
-	//
-	// steady_clock::time_point start = steady_clock::now();
-	// // function we are timing
-	// // In this example, we are timing how long it takes to loop 1000 times
+	//Calculate time duration
+	
+	
+	
+	// function we are timing
+	// In this example, we are timing how long it takes to loop 1000 times
 	// for(int i=0; i<1000; i++)
 	// {
 	// 	cout << ". ";
 	// }
-	// steady_clock::time_point end = steady_clock::now();
-	//
-	// duration<double> totalTime = duration_cast< duration<double> >(end - start);
-	//
-	// cout << "Looping 1000 times took " << totalTime.count() << " seconds.";
-	// cout << endl;
-	//
-	// return 0;
+	
+	
+	
+	
+	
+	
+	return 0;
 }
