@@ -57,11 +57,11 @@ bool BST<T>::remove(const T& element) {
 		Node<T> *temp = head;
 		Node<T> *prev;
 		while (temp) {
-			
+
 			if (temp->value > element) {
 				prev = temp;
 				temp = temp->left;
-				
+
 			} else if (temp->value < element) {
 				prev = temp;
 				temp = temp->right;
@@ -90,7 +90,7 @@ bool BST<T>::remove(const T& element) {
 			}
 		}
 		// now the case that are 2 children
-		// need to find the minimum value node and put that in place 
+		// need to find the minimum value node and put that in place
 		else {
 			Node<T> * smallest = temp;
 			while (smallest->left != NULL) {
