@@ -9,18 +9,12 @@ BST<T>::BST() {
 }
 
 template <class T>
-BST<T>::~BST() {
-	delete head;
-}
-
-template <class T>
 bool BST<T>::insert(const T& element) {
-	// cout << "in the insert function" << endl;
+	cout << "in the insert function" << endl;
 	bool equal = false;
 	if (head == NULL) {
 		head = new Node<T>;
 		head->value = element;
-		head->right = head->left = NULL;
 	} else {
 		Node<T> *temp = head;
 		Node<T> *prev;
@@ -38,7 +32,6 @@ bool BST<T>::insert(const T& element) {
 		if (!equal) {
 			temp = new Node<T>;
 			temp->value = element;
-			temp->left = temp->right = NULL;
 			if (prev->value > temp->value) {
 				prev->left = temp;
 			}
@@ -95,14 +88,14 @@ Node<T> *BST<T>::removeHelper(Node<T> *root, const T& data) {
 
 template <class T>
 bool BST<T>::remove(const T& element) {
-	// cout << "in the remove function" << endl;
+	cout << "in the remove function" << endl;
 	head = removeHelper(head, element);
 	return true;
 }
 
 template <class T>
 bool BST<T>::find(const T& element) const {
-	// cout << "in the find function" << endl;
+	cout << "in the find function" << endl;
 
 	bool found = false;
 

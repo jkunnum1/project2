@@ -12,10 +12,6 @@ struct Node {
 	Node *left;
 
 	Node() : right(NULL), left(NULL) {}
-	~Node() {
-		delete right;
-		delete left;
-	}
 };
 
 template <class T>
@@ -30,7 +26,6 @@ public:
 	bool find(const T&) const;
 	void display() const; // inorder display
 	void displayHelper(Node<T> *node) const;
-	~BST();
 };
 
 #endif

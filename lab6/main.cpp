@@ -22,6 +22,7 @@ void helpermakeBBST(BST<T> &bst, T left, T right)
 	// Node<T>* root = new Node<T>;
 	bst.insert(middle);
 	// root->value = middle;
+
 	helpermakeBBST(bst, left, middle-1);
 	helpermakeBBST(bst, middle+1, right);
 	// root->left = helpermakeBBST(left, middle-1);
@@ -71,12 +72,12 @@ int main(int argc, char const *argv[])
 	// makeUBST(int size, T firstValue)
 	// the purpose of inserting a first value is so that the function knows what
 	// type of BST to return
-	double elapsed_sec_remove = 0.0;
-	double elapsed_sec_insert = 0.0;
-	double elapsed_sec_find = 0.0;
-	for (int i = 0; i < 5; i++) {
+	double elapsed_sec_remove;
+	double elapsed_sec_insert;
+	double elapsed_sec_find;
+	for (int i = 0; i < 1; i++) {
 		clock_t begin_i = clock();
-		BST<int> test = makeBBST(LOOP);
+		BST<int> test = makeUBST(LOOP, 0);
 		clock_t end_i = clock();
 
 		clock_t begin_f = clock();
@@ -90,7 +91,7 @@ int main(int argc, char const *argv[])
 		elapsed_sec_remove += (double(end_r-begin_r) / CLOCKS_PER_SEC);
 		elapsed_sec_insert += (double(end_i-begin_i) / CLOCKS_PER_SEC);
 		elapsed_sec_find += (double(end_f-begin_f) / CLOCKS_PER_SEC);
-		cout << "AT THE END OF THE FIRST LOOP" << endl;
+
 	}
 	double average = elapsed_sec_insert / 5;
 	cout << "Looping average insert " << LOOP << " times took " << average << " seconds." << endl;
@@ -98,7 +99,7 @@ int main(int argc, char const *argv[])
 	cout << "Looping average find " << LOOP << " times took " << average << " seconds." << endl;
 	average = elapsed_sec_remove / 5;
 	cout << "Looping average remove " << LOOP << " times took " << average << " seconds." << endl;
-		
+	
 
 	// BST<int> test2 = makeUBST(1000, 1);
 	
