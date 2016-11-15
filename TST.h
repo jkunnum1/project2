@@ -7,9 +7,21 @@ using namespace std;
 
 template <typename T>
 struct NodeT {
-	NodeT() : right(NULL), left(NULL), middle(NULL) {}
-	T value;
-
+	NodeT() : right(NULL), left(NULL), middle(NULL), maxSet(false) {}
+	~NodeT() {
+		if (right) {
+			delete right;
+		}
+		if (middle) {
+			delete middle;
+		}
+		if (left) {
+			delete left;
+		}
+	}
+	T min;
+	T max;
+	bool maxSet;
 	NodeT *left;
 	NodeT *middle;
 	NodeT *right;
@@ -27,6 +39,8 @@ public:
 	bool remove(const T&);
 	bool find(const T&) const;
 	void display() const; // inorder display
+	void displayHelper(NodeT<T> *node) const;
+	~TST();
 
 };
 

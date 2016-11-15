@@ -10,115 +10,93 @@ TST<T>::TST()
 }
 
 template <class T>
+TST<T>::~TST() {
+	delete head;
+}
+
+
+template <class T>
 bool TST<T>::insert(const T& element)
 {
 	cout << "in the insert function" << endl;
-	// bool equal = false;
-
-	// if(head == NULL)
-	// {
-	// 		head = new NodeT<T>;
-	// 		head->value = element;
-	// 		cout << "Root: " << element << endl;
-	// 		return true;
-	// }
-	// else
-	// {
-	// 		NodeT<T>* temp = head;
-	// 		NodeT<T>* prev;
-	//
-	// 		while(temp)
-	// 		{
-	// 			prev = temp;
-	//
-	// 			if(temp->left !=NULL && temp->right !=NULL)
-	// 			{
-	// 				if(element > temp->left->value && element < temp->right->value)
-	// 				{
-	// 					cout << element << " goes to the middle" << endl;
-	// 					temp = temp->middle;
-	// 				}
-	// 				else if(element < temp->value)
-	// 				{
-	// 					cout << element << " goes to the left" << endl;
-	// 					temp = temp->left;
-	// 				}
-	// 				else if(element > temp->value)
-	// 				{
-	// 					cout << element << " goes to the right" << endl;
-	// 					temp = temp->right;
-	// 				}
-	// 				else
-	// 				{
-	// 					equal = true;
-	// 					break;
-	// 				}
-	// 			}
-	// 			else if(element < temp->value)
-	// 			{
-	// 				cout << element << " goes to the left" << endl;
-	// 				temp = temp->left;
-	// 			}
-	// 			else if(element > temp->value)
-	// 			{
-	// 				cout << element << " goes to the right" << endl;
-	// 				temp = temp->right;
-	// 			}
-	// 			else
-	// 			{
-	// 				equal = true;
-	// 				break;
-	// 			}
-	// 		}
-	//
-	// 		if(!equal)
-	// 		{
-	// 			temp = new NodeT<T>;
-	// 			temp->value = element;
-	//
-	// 			if(temp->value < prev->value)
-	// 			{
-	// 					if(prev->left == NULL)
-	// 					{
-	// 						cout << "inserted " << element << " on the left" << endl;
-	// 						prev->left = temp;
-	// 					}
-	// 					else
-	// 					{
-	// 						cout << "inserted " << element << " on the middle" << endl;
-	// 						prev->middle = temp;
-	// 					}
-	// 			}
-	// 			else if(temp->value > prev->value)
-	// 			{
-	// 				if(prev->right == NULL)
-	// 				{
-	// 					cout << "inserted " << element << " on the right" << endl;
-	// 					prev->right = temp;
-	// 				}
-	// 				else
-	// 				{
-	// 						prev->middle = temp;
-	// 						cout << "inserted " << element << " on the middle" << endl;
-	// 				}
-	// 			}
-	// 		}
-	// 		else
-	// 		{
-	// 			cout << "value already exists!" << endl;
-	// 			return false;
-	// 		}
-	// }
-
-  return true;
+	bool equal = false;
+	// head is null
+	if (head == NULL) {
+		head = new NodeT<T>;
+		head->min = element;
+	} 
+	// head exists but only one value in there
+	else if (!head->maxSet) {
+		head->maxSet = true;
+		if (element > head->min)
+			head->max = element;
+		else if (element < head->min){
+			head->max = head->min;
+			head->min = element;
+		} else {
+			cout << "value already exists" << endl;
+			return false;
+		}
+	}
+	// there are two values in the head
+	else {
+		NodeT<T> *temp = head;
+		NodeT<T> *prev;
+		while (temp) {
+			prev = temp;
+			// check if there is a right value
+			if (!temp->maxSet) {
+				temp->maxSet = true;
+				if (element > temp->min)
+					temp->max = element;
+				else if (element < temp->min) {
+					temp->max = temp->min;
+					temp->min = element;
+				} else {
+					cout << "value already exists" << endl;
+					return false;
+				}
+				break;
+			}
+			if (temp->min > element) {
+				temp = temp->left;
+			} else if (temp->min < element && temp->max > element) {
+				temp = temp->middle;
+			} else if (temp->max < element) {
+				temp = temp->right;
+			} else {
+				equal = true;
+				break;
+			}
+		}
+		if (equal) {
+			cout << "value already exists" << endl;
+			return false;
+		} else {
+			temp = new NodeT<T>;
+			temp->min = element;
+			temp->left = temp->right = temp->middle = NULL;
+			if (prev->min > temp->min) {
+				prev->left = temp;
+			} else if (prev->min < temp->min && prev->max > temp->min) {
+				prev->middle = temp;
+			} else if (prev->max < temp->min)
+				prev->right = temp;
+		}
+	}
+  	return true;
 }
+
 
 template <class T>
 bool TST<T>::remove(const T& element)
 {
 	cout << "in the remove function" << endl;
-  return true;
+	
+
+  	return true;
 }
+
 
 template <class T>
 bool TST<T>::find(const T& element) const
@@ -127,10 +105,25 @@ bool TST<T>::find(const T& element) const
   return true;
 }
 
+
 template <class T>
 void TST<T>::display() const
 {
 	cout << "in the display function" << endl;
+	displayHelper(head);
+	cout << endl;
+}
+
+template <class T>
+void TST<T>::displayHelper(NodeT<T> *node) const{
+	if (node == NULL)
+		return;
+	displayHelper(node->left);
+	cout << node->min << " ";
+	displayHelper(node->middle);
+	if (node->maxSet)
+		cout << node->max << " ";
+	displayHelper(node->right);
 }
 
 template class TST<int>;
