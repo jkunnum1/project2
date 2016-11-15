@@ -6,7 +6,7 @@
 #include "BST.cpp"
 using namespace std::chrono;
 
-#define LOOP 1000000
+#define LOOP 100000
 
 template <typename T>
 void helpermakeBBST(BST<T> &bst, T left, T right)
@@ -55,11 +55,8 @@ BST<T> makeUBST(int size, T firstValue)
 	// is always greater than the previous node inserted
 	for(int i=0; i<size; i++)
 	{
-		Node<T> tempNode;
-		tempNode.value = value;
-		value++;
-
 		bst.insert(value);
+		value++;
 	}
 
 	return bst;
@@ -76,7 +73,7 @@ int main(int argc, char const *argv[])
 	double elapsed_sec_find = 0.0;
 	for (int i = 0; i < 5; i++) {
 		clock_t begin_i = clock();
-		BST<int> test = makeBBST(LOOP);
+		BST<int> test = makeUBST(LOOP, 0);
 		clock_t end_i = clock();
 
 		clock_t begin_f = clock();
@@ -86,11 +83,10 @@ int main(int argc, char const *argv[])
 		clock_t begin_r = clock();
 		test.remove(LOOP / 2);
 		clock_t end_r = clock();
-
 		elapsed_sec_remove += (double(end_r-begin_r) / CLOCKS_PER_SEC);
 		elapsed_sec_insert += (double(end_i-begin_i) / CLOCKS_PER_SEC);
 		elapsed_sec_find += (double(end_f-begin_f) / CLOCKS_PER_SEC);
-		cout << "AT THE END OF THE FIRST LOOP" << endl;
+		cout << "AT THE END OF THE " << i << " LOOP" << endl;
 	}
 	double average = elapsed_sec_insert / 5;
 	cout << "Looping average insert " << LOOP << " times took " << average << " seconds." << endl;

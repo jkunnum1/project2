@@ -13,8 +13,12 @@ struct Node {
 
 	Node() : right(NULL), left(NULL) {}
 	~Node() {
-		delete right;
-		delete left;
+		if (right) {
+			delete right;
+		}
+		if (left) {
+			delete left;
+		}
 	}
 };
 
