@@ -24,7 +24,7 @@ bool TST<T>::insert(const T& element)
 	if (head == NULL) {
 		head = new NodeT<T>;
 		head->min = element;
-	} 
+	}
 	// head exists but only one value in there
 	else if (!head->maxSet) {
 		head->maxSet = true;
@@ -92,7 +92,7 @@ template <class T>
 bool TST<T>::remove(const T& element)
 {
 	cout << "in the remove function" << endl;
-	
+
 
   	return true;
 }

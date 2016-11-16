@@ -1,13 +1,13 @@
 // libraries for timing functions
-#include <chrono>
+//#include <chrono>
 #include <ctime>
 #include <ratio>
 
 #include "BST.cpp"
 #include "TST.cpp"
-using namespace std::chrono;
+//using namespace std::chrono;
 
-#define LOOP 1000000
+#define LOOP 100200
 
 template <typename T>
 void helpermakeBBST(BST<T> &bst, T left, T right)
@@ -69,36 +69,36 @@ int main(int argc, char const *argv[])
 	// makeUBST(int size, T firstValue)
 	// the purpose of inserting a first value is so that the function knows what
 	// type of BST to return
-	// double elapsed_sec_remove = 0.0;
-	// double elapsed_sec_insert = 0.0;
-	// double elapsed_sec_find = 0.0;
-	// for (int i = 0; i < 1; i++) {
-	// 	clock_t begin_i = clock();
-	// 	BST<int> test = makeUBST(LOOP, 0);
-	// 	clock_t end_i = clock();
+	double elapsed_sec_remove = 0.0;
+	double elapsed_sec_insert = 0.0;
+	double elapsed_sec_find = 0.0;
+	for (int i = 0; i < 1; i++) {
+		clock_t begin_i = clock();
+		BST<int> test = makeUBST(LOOP, 0);
+		clock_t end_i = clock();
 
-	// 	clock_t begin_f = clock();
-	// 	test.find(LOOP);
-	// 	clock_t end_f = clock();
+		clock_t begin_f = clock();
+		test.find(LOOP);
+		clock_t end_f = clock();
 
-	// 	clock_t begin_r = clock();
-	// 	test.remove(LOOP / 2);
-	// 	clock_t end_r = clock();
-	// 	elapsed_sec_remove += (double(end_r-begin_r) / CLOCKS_PER_SEC);
-	// 	elapsed_sec_insert += (double(end_i-begin_i) / CLOCKS_PER_SEC);
-	// 	elapsed_sec_find += (double(end_f-begin_f) / CLOCKS_PER_SEC);
-	// 	cout << "AT THE END OF THE " << i << " LOOP" << endl;
-	// }
-	// double average = elapsed_sec_insert / 5;
-	// cout << "Looping average insert " << LOOP << " times took " << average << " seconds." << endl;
-	// average = elapsed_sec_find / 5;
-	// cout << "Looping average find " << LOOP << " times took " << average << " seconds." << endl;
-	// average = elapsed_sec_remove / 5;
-	// cout << "Looping average remove " << LOOP << " times took " << average << " seconds." << endl;
-		
+		clock_t begin_r = clock();
+		test.remove(LOOP / 2);
+		clock_t end_r = clock();
+		elapsed_sec_remove += (double(end_r-begin_r) / CLOCKS_PER_SEC);
+		elapsed_sec_insert += (double(end_i-begin_i) / CLOCKS_PER_SEC);
+		elapsed_sec_find += (double(end_f-begin_f) / CLOCKS_PER_SEC);
+		cout << "AT THE END OF THE " << i << " LOOP" << endl;
+	}
+	double average = elapsed_sec_insert;
+	cout << "Looping average insert " << LOOP << " times took " << average << " seconds." << endl;
+	average = elapsed_sec_find;
+	cout << "Looping average find " << LOOP << " times took " << average << " seconds." << endl;
+	average = elapsed_sec_remove;
+	cout << "Looping average remove " << LOOP << " times took " << average << " seconds." << endl;
+
 
 	// BST<int> test2 = makeUBST(1000, 1);
-	
+
 
 
 	//BBST.display();
@@ -116,18 +116,18 @@ int main(int argc, char const *argv[])
 	// first.find(x);
 	//
 	//Calculate time duration
-	
-	
-	
+
+
+
 	// function we are timing
 	// In this example, we are timing how long it takes to loop 1000 times
 	// for(int i=0; i<1000; i++)
 	// {
 	// 	cout << ". ";
 	// }
-	
-	
-	
+
+
+
 	TST<int> test;
 	test.insert(1);
 	test.insert(4);
@@ -135,7 +135,7 @@ int main(int argc, char const *argv[])
 	test.insert(5);
 	test.insert(8);
 	test.display();
-	
-	
+
+
 	return 0;
 }
