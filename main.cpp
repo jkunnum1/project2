@@ -7,7 +7,7 @@
 #include "TST.cpp"
 //using namespace std::chrono;
 
-#define LOOP 100200
+#define LOOP 60000
 
 template <typename T>
 void helpermakeBBST(BST<T> &bst, T left, T right)
@@ -89,6 +89,7 @@ int main(int argc, char const *argv[])
 		elapsed_sec_find += (double(end_f-begin_f) / CLOCKS_PER_SEC);
 		cout << "AT THE END OF THE " << i << " LOOP" << endl;
 	}
+	//cout << "ssdlkjfslkfgj" << endl;
 	double average = elapsed_sec_insert;
 	cout << "Looping average insert " << LOOP << " times took " << average << " seconds." << endl;
 	average = elapsed_sec_find;

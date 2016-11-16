@@ -4,12 +4,12 @@ using namespace std;
 
 template <class T>
 BST<T>::BST() {
-	cout << "in the default constructor" << endl;
 	head = NULL;
 }
 
 template <class T>
 BST<T>::~BST() {
+	cout << "destructor!" << endl;
 	delete head;
 }
 
@@ -57,9 +57,9 @@ bool BST<T>::insert(const T& element) {
 
 template <class T>
 Node<T> *BST<T>::removeHelper(Node<T> *root, const T& data) {
-	if(root == NULL) 
+	if(root == NULL)
 		return root;
-  	else if(data < root->value) 
+  	else if(data < root->value)
   		root->left = removeHelper(root->left,data);
   	else if(data > root->value)
   		root->right = removeHelper(root->right, data);

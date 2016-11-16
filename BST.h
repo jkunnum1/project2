@@ -14,9 +14,11 @@ struct Node {
 	Node() : right(NULL), left(NULL) {}
 	~Node() {
 		if (right) {
+			cout << "delete right wow! omg" << endl;
 			delete right;
 		}
 		if (left) {
+			cout << "delete left woohoehehj" << endl;
 			delete left;
 		}
 	}
