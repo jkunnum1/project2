@@ -8,6 +8,13 @@ using namespace std;
 template <typename T>
 struct NodeT {
 	NodeT() : right(NULL), left(NULL), middle(NULL), maxSet(false) {}
+	
+	T min;
+	T max;
+	bool maxSet;
+	NodeT *left;
+	NodeT *middle;
+	NodeT *right;
 	~NodeT() {
 		if (right) {
 			delete right;
@@ -19,13 +26,6 @@ struct NodeT {
 			delete left;
 		}
 	}
-	T min;
-	T max;
-	bool maxSet;
-	NodeT *left;
-	NodeT *middle;
-	NodeT *right;
-
 };
 
 template <class T>
@@ -37,6 +37,7 @@ public:
 	TST();
 	bool insert(const T&);
 	bool remove(const T&);
+	NodeT<T> *removeHelper(NodeT<T> *root, const T& element);
 	bool find(const T&) const;
 	void display() const; // inorder display
 	void displayHelper(NodeT<T> *node) const;

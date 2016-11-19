@@ -7,7 +7,8 @@
 #include "TST.cpp"
 //using namespace std::chrono;
 
-#define LOOP 60000
+
+#define LOOP 50000
 
 template <typename T>
 void helpermakeBBST(BST<T> &bst, T left, T right)
@@ -69,10 +70,11 @@ int main(int argc, char const *argv[])
 	// makeUBST(int size, T firstValue)
 	// the purpose of inserting a first value is so that the function knows what
 	// type of BST to return
-	double elapsed_sec_remove = 0.0;
+
+	/*double elapsed_sec_remove = 0.0;
 	double elapsed_sec_insert = 0.0;
 	double elapsed_sec_find = 0.0;
-	for (int i = 0; i < 1; i++) {
+	for (int i = 0; i < 5; i++) {
 		clock_t begin_i = clock();
 		BST<int> test = makeUBST(LOOP, 0);
 		clock_t end_i = clock();
@@ -89,43 +91,16 @@ int main(int argc, char const *argv[])
 		elapsed_sec_find += (double(end_f-begin_f) / CLOCKS_PER_SEC);
 		cout << "AT THE END OF THE " << i << " LOOP" << endl;
 	}
-	//cout << "ssdlkjfslkfgj" << endl;
-	double average = elapsed_sec_insert;
+
+	double average = elapsed_sec_insert / 5;
 	cout << "Looping average insert " << LOOP << " times took " << average << " seconds." << endl;
-	average = elapsed_sec_find;
+	average = elapsed_sec_find / 5;
 	cout << "Looping average find " << LOOP << " times took " << average << " seconds." << endl;
-	average = elapsed_sec_remove;
+	average = elapsed_sec_remove / 5;
 	cout << "Looping average remove " << LOOP << " times took " << average << " seconds." << endl;
-
-
-	// BST<int> test2 = makeUBST(1000, 1);
-
-
-
-	//BBST.display();
-	// BST<int> first;
-	// int x = 5;
-	// first.insert(x);
-	// first.insert(3);
-	// first.insert(3);
-	// first.insert(8);
-	// first.insert(8);
-	// first.insert(10);
-	// first.insert(1);
-	// //first.remove(4);
-	// first.display();
-	// first.find(x);
-	//
+	*/
+	
 	//Calculate time duration
-
-
-
-	// function we are timing
-	// In this example, we are timing how long it takes to loop 1000 times
-	// for(int i=0; i<1000; i++)
-	// {
-	// 	cout << ". ";
-	// }
 
 
 
@@ -135,8 +110,10 @@ int main(int argc, char const *argv[])
 	test.insert(3);
 	test.insert(5);
 	test.insert(8);
+	test.insert(8);
+	test.insert(10);
+	test.find(10);
 	test.display();
-
 
 	return 0;
 }

@@ -60,7 +60,7 @@ bool TST<T>::insert(const T& element)
 			}
 			if (temp->min > element) {
 				temp = temp->left;
-			} else if (temp->min < element && temp->max > element) {
+			} else if ((temp->min < element) && (temp->max > element)) {
 				temp = temp->middle;
 			} else if (temp->max < element) {
 				temp = temp->right;
@@ -87,28 +87,91 @@ bool TST<T>::insert(const T& element)
   	return true;
 }
 
+template <class T>
+NodeT<T> *TST<T>::removeHelper(NodeT<T> *root, const T& data)
+{
+	if(root == NULL) {
+		cout << "root is null" << endl;
+		return root;
+	}
+	NodeT<T> *prev;
+	NodeT<T> *removeNode = root;
+	while (removeNode->min != data && removeNode->max !=data) {
+		prev = removeNode;
+		if (removeNode->min > data)
+			removeNode = removeNode->left;
+		else if (removeNode->min < data && (removeNode->maxSet && removeNode->max > data))
+			removeNode = removeNode->middle;
+		else if (removeNode->maxSet && removeNode->max < data)
+			removeNode = removeNode->right;
+		else
+			cout << "the number was not found it the tree" << endl;
+	}
+	cout << "removed node min: " << removeNode->min << " and max: " << removeNode->max << endl;
+  	
+  	// if the node has only one valid value and no children
+  	if (removeNode->maxSet == false) {
+  		if (prev->min > data)
+			prev->left = NULL;
+		else if (prev->min < data && (prev->maxSet && prev->max > data))
+			prev->middle = NULL;
+		else if (prev->maxSet && prev->max < data)
+			prev->right = NULL;
+		delete removeNode;
+		return root;
+	}
+	// if the node has 2 valid values and no children
+	else if (removeNode->maxSet && (!removeNode->left && !removeNode->middle && !removeNode->right)) {
+		if (removeNode->min == data) {
+			removeNode->min = removeNode->max;
+			removeNode->maxSet = false;
+		} else {
+			removeNode->maxSet = false;
+		}
+	}
+
+  	return root;
+}
+
 
 template <class T>
 bool TST<T>::remove(const T& element)
 {
 	cout << "in the remove function" << endl;
-
+	head = removeHelper(head, element);
 
   	return true;
 }
 
 
 template <class T>
-bool TST<T>::find(const T& element) const
-{
+bool TST<T>::find(const T& data) const {
 	cout << "in the find function" << endl;
-  return true;
+	if(head == NULL) {
+		cout << "root is null" << endl;
+		return false;
+	}
+	NodeT<T> *root = head;
+	while (root->min != data && root->max !=data) {
+		if (root->min > data)
+			root = root->left;
+		else if (root->min < data && (root->maxSet && root->max > data))
+			root = root->middle;
+		else if (root->maxSet && root->max < data)
+			root = root->right;
+		else {
+			cout << "the value was not found" << endl;
+			return true;
+		}
+
+	}
+	cout << "the value was found" << endl;
+	return true;
 }
 
 
 template <class T>
-void TST<T>::display() const
-{
+void TST<T>::display() const {
 	cout << "in the display function" << endl;
 	displayHelper(head);
 	cout << endl;
