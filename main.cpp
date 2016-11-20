@@ -180,95 +180,21 @@ int main(int argc, char const *argv[])
 
 
 
-	// TST<int> test = makeBTST(10000);
-	// test.display();
-	//
-	// // makeUTST(size, firstValue)
-	// TST<int> test2 = makeUTST(10000, 0);
-	// test2.display();
-	//
-	// clock_t begin_i = clock();
-	// test.insert(10002);
-	// clock_t end_i = clock();
-	// cout << "insert balanced: " << (double(end_i-begin_i) / CLOCKS_PER_SEC) << endl;
-	//
-	// begin_i = clock();
-	// test2.insert(10002);
-	// end_i = clock();
-	// cout << "insert unbalanced: " << (double(end_i-begin_i) / CLOCKS_PER_SEC) << endl;
-
-
-	// makeUBST(int size, T firstValue)
-	// the purpose of inserting a first value is so that the function knows what
-	// type of BST to return
-	// double elapsed_sec_remove = 0.0;
-	// double elapsed_sec_insert = 0.0;
-	// double elapsed_sec_find = 0.0;
-	// for (int i = 0; i < 1; i++) {
-	// 	clock_t begin_i = clock();
-	// 	BST<int> test = makeUBST(LOOP, 0);
-	// 	clock_t end_i = clock();
-	//
-	// 	clock_t begin_f = clock();
-	// 	test.find(LOOP);
-	// 	clock_t end_f = clock();
-	//
-	// 	clock_t begin_r = clock();
-	// 	test.remove(LOOP / 2);
-	// 	clock_t end_r = clock();
-	// 	elapsed_sec_remove += (double(end_r-begin_r) / CLOCKS_PER_SEC);
-	// 	elapsed_sec_insert += (double(end_i-begin_i) / CLOCKS_PER_SEC);
-	// 	elapsed_sec_find += (double(end_f-begin_f) / CLOCKS_PER_SEC);
-	// 	cout << "AT THE END OF THE " << i << " LOOP" << endl;
-	// }
-	// //cout << "ssdlkjfslkfgj" << endl;
-	// double average = elapsed_sec_insert;
-	// cout << "Looping average insert " << LOOP << " times took " << average << " seconds." << endl;
-	// average = elapsed_sec_find;
-	// cout << "Looping average find " << LOOP << " times took " << average << " seconds." << endl;
-	// average = elapsed_sec_remove;
-	// cout << "Looping average remove " << LOOP << " times took " << average << " seconds." << endl;
-
-
-	// BST<int> test2 = makeUBST(1000, 1);
-
-
-
-	//BBST.display();
-	// BST<int> first;
-	// int x = 5;
-	// first.insert(x);
-	// first.insert(3);
-	// first.insert(3);
-	// first.insert(8);
-	// first.insert(8);
-	// first.insert(10);
-	// first.insert(1);
-	// //first.remove(4);
-	// first.display();
-	// first.find(x);
-	//
-	//Calculate time duration
-
-
-
-	// function we are timing
-	// In this example, we are timing how long it takes to loop 1000 times
-	// for(int i=0; i<1000; i++)
-	// {
-	// 	cout << ". ";
-	// }
-
-
-
-	// TST<int> test;
-	// test.insert(1);
-	// test.insert(4);
-	// test.insert(3);
-	// test.insert(5);
-	// test.insert(8);
-	// test.display();
-
+	TST<int> test;
+	test.insert(3);
+	test.insert(6);
+	test.insert(0);
+	test.insert(2);
+	test.insert(4);
+	test.insert(5);
+	test.insert(8);
+	test.insert(9);
+	test.insert(1);
+	test.insert(7);
+	test.insert(10);
+	test.display();
+	test.remove(0);
+	test.display();
 
 	return 0;
 }

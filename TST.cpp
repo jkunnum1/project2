@@ -88,6 +88,198 @@ bool TST<T>::insert(const T& element)
 }
 
 template <class T>
+void TST<T>::removeMax(NodeT<T> *root, NodeT<T> *prev, const T& data) {
+	NodeT<T> *temp = root;
+	if (root->right) {
+		cout << "came in left" << endl;
+		prev = temp;
+		temp = temp->right;
+		while (temp->left) {
+			prev = temp;
+			temp = temp->left;
+		}
+		// you are at the right most node. Get the higher value
+		if (temp->maxSet) {
+			root->max = temp->min;
+			if (temp->right || temp->middle)
+				removeMin(temp, prev, temp->min);
+			else
+				temp->maxSet = false;
+		} else {
+			root->max = temp->min;
+			if (prev->right == temp)
+				prev->right = NULL;
+			if (prev->left == temp)
+				prev->left = NULL;
+			delete temp;
+		}
+	} else if (root->middle) {
+		cout << "went into the middle" << endl;
+		prev = temp;
+		temp = temp->middle;
+		while (temp->right) {
+			prev = temp;
+			temp = temp->right;
+		}
+		// you are at the left most node. get the lower value
+		if (temp->maxSet) {
+			root->max = temp->max;
+			if (temp->middle || temp->right) 
+				removeMin(temp, prev, temp->max);
+			else {
+				temp->max = temp->max;
+				temp->maxSet = false;
+			}
+		} else {
+			root->max = temp->min;
+			if (prev->middle == temp)
+				prev->middle = NULL;
+			if (prev->left == temp)
+				prev->left = NULL;
+			delete temp;
+		}
+	} else if (root->left) {
+		cout << "came in the right" << endl;
+		prev = temp;
+		temp = temp->left;
+		while (temp->right) {
+			prev = temp;
+			temp = temp->right;
+		}
+		// you are at the left most node. get the lower value
+		if (temp->maxSet) {
+			root->max = temp->max;
+			if (temp->middle || temp->right) 
+				removeMin(temp, prev, temp->max);
+			else {
+				temp->max = temp->max;
+				temp->maxSet = false;
+			}
+		} else {
+			root->max = temp->min;
+			if (prev->middle == temp)
+				prev->middle = NULL;
+			if (prev->left == temp)
+				prev->left = NULL;
+			delete temp;
+		}
+	// this is the case where there are no subtrees
+	} else {
+		cout << "came in here" << endl;
+		if (root->maxSet) {
+			root->min = root->max;
+			root->maxSet = false;
+		} else {
+			if (prev->left == root)
+				prev->left = NULL;
+			else if (prev->middle == root) 
+				prev->middle = NULL;
+			else if (prev->right == root)
+				prev->right = NULL;
+			delete root;
+		}
+	}
+}
+
+template <class T>
+void TST<T>::removeMin(NodeT<T> *root, NodeT<T> *prev, const T& data) {
+	NodeT<T> *temp = root;
+	if (root->left) {
+		cout << "came in left" << endl;
+		prev = temp;
+		temp = temp->left;
+		while (temp->right) {
+			prev = temp;
+			temp = temp->right;
+		}
+		// you are at the right most node. Get the higher value
+		if (temp->maxSet) {
+			root->min = temp->max;
+			if (temp->left || temp->middle)
+				removeMax(temp, prev, temp->max);
+			else
+				temp->maxSet = false;
+		} else {
+			root->min = temp->min;
+			if (prev->right == temp)
+				prev->right = NULL;
+			if (prev->left == temp)
+				prev->left = NULL;
+			delete temp;
+		}
+	} else if (root->middle) {
+		cout << "went into the middle" << endl;
+		prev = temp;
+		temp = temp->middle;
+		while (temp->left) {
+			prev = temp;
+			temp = temp->left;
+		}
+		// you are at the left most node. get the lower value
+		if (temp->maxSet) {
+			root->min = temp->min;
+			if (temp->middle || temp->right) 
+				removeMin(temp, prev, temp->min);
+			else {
+				temp->min = temp->max;
+				temp->maxSet = false;
+			}
+		} else {
+			cout << "no max value " << endl;
+			root->min = temp->min;
+			cout << root->min << endl;
+			if (prev->middle == temp) {
+				cout << "middle pointer" << endl;
+				prev->middle = NULL;
+			}
+			if (prev->left == temp)
+				prev->left = NULL;
+			delete temp;
+		}
+	} else if (root->right) {
+		cout << "came in the right" << endl;
+		prev = temp;
+		temp = temp->right;
+		while (temp->left) {
+			prev = temp;
+			temp = temp->left;
+		}
+		// you are at the left most node. get the lower value
+		if (temp->maxSet) {
+			root->min = temp->min;
+			if (temp->middle || temp->right) 
+				removeMin(temp, prev, temp->min);
+			else {
+				temp->min = temp->max;
+				temp->maxSet = false;
+			}
+		} else {
+			root->min = temp->min;
+			if (prev->middle == temp)
+				prev->middle = NULL;
+			if (prev->left == temp)
+				prev->left = NULL;
+			delete temp;
+		}
+	// this is the case where there are no subtrees
+	} else {
+		cout << "came in here" << endl;
+		if (root->maxSet) {
+			root->min = root->max;
+			root->maxSet = false;
+		} else {
+			if (prev->left == root)
+				prev->left = NULL;
+			else if (prev->middle == root) 
+				prev->middle = NULL;
+			else if (prev->right == root)
+				prev->right = NULL;
+			delete root;
+		}
+	}
+}
+
+template <class T>
 NodeT<T> *TST<T>::removeHelper(NodeT<T> *root, const T& data)
 {
 	if(root == NULL) {
@@ -96,6 +288,7 @@ NodeT<T> *TST<T>::removeHelper(NodeT<T> *root, const T& data)
 	}
 	NodeT<T> *prev;
 	NodeT<T> *removeNode = root;
+	// removeNode will point to the node which holds the value we want to remove
 	while (removeNode->min != data && removeNode->max !=data) {
 		prev = removeNode;
 		if (removeNode->min > data)
@@ -109,26 +302,14 @@ NodeT<T> *TST<T>::removeHelper(NodeT<T> *root, const T& data)
 	}
 	cout << "removed node min: " << removeNode->min << " and max: " << removeNode->max << endl;
   	
-  	// if the node has only one valid value and no children
-  	if (removeNode->maxSet == false) {
-  		if (prev->min > data)
-			prev->left = NULL;
-		else if (prev->min < data && (prev->maxSet && prev->max > data))
-			prev->middle = NULL;
-		else if (prev->maxSet && prev->max < data)
-			prev->right = NULL;
-		delete removeNode;
-		return root;
-	}
-	// if the node has 2 valid values and no children
-	else if (removeNode->maxSet && (!removeNode->left && !removeNode->middle && !removeNode->right)) {
-		if (removeNode->min == data) {
-			removeNode->min = removeNode->max;
-			removeNode->maxSet = false;
-		} else {
-			removeNode->maxSet = false;
-		}
-	}
+  	if (removeNode->min == data) {
+  		cout << "going into removeMin" << endl;
+  		removeMin(removeNode, prev, data);
+  	}
+  	else {
+  		cout << "going into removeMax" << endl;
+  		removeMax(removeNode, prev, data);
+  	}
 
   	return root;
 }
