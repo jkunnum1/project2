@@ -30,7 +30,7 @@ bool TST<T>::insert(const T& element)
 	}
 	// head exists but only one value in there
 	else if (!head->maxSet) {
-		head->maxSet = true;
+		//head->maxSet = true;
 		if (element > head->min)
 			head->max = element;
 		else if (element < head->min){
@@ -40,6 +40,7 @@ bool TST<T>::insert(const T& element)
 			//cout << "value already exists" << endl;
 			return false;
 		}
+		head->maxSet = true;
 	}
 	// there are two values in the head
 	else {
@@ -49,7 +50,7 @@ bool TST<T>::insert(const T& element)
 			prev = temp;
 			// check if there is a right value
 			if (!temp->maxSet) {
-				temp->maxSet = true;
+				//temp->maxSet = true;
 				if (element > temp->min)
 					temp->max = element;
 				else if (element < (temp->min)) {
@@ -59,6 +60,7 @@ bool TST<T>::insert(const T& element)
 					//cout << "value already exists" << endl;
 					return false;
 				}
+				temp->maxSet = true;
 				break;
 			}
 			if (element < (temp->min)) {
@@ -251,9 +253,15 @@ void TST<T>::removeMin(NodeT<T> *root, NodeT<T> *prev, const T& data) {
 			prev = temp;
 			temp = temp->left;
 		}
-		// you are at the left most node. get the lower value
+		//you are at the left most node. get the lower value
 		if (temp->maxSet) {
 			root->min = temp->min;
+			if(root->min > root->max) // out of order! must swap
+			{
+				T swap = root->min;
+				root->min = root->max;
+				root->max = swap;
+			}
 			if (temp->middle || temp->right)
 				removeMin(temp, prev, temp->min);
 			else {
@@ -262,6 +270,12 @@ void TST<T>::removeMin(NodeT<T> *root, NodeT<T> *prev, const T& data) {
 			}
 		} else {
 			root->min = temp->min;
+			if(root->min > root->max) // out of order! must swap
+			{
+				T swap = root->min;
+				root->min = root->max;
+				root->max = swap;
+			}
 			if (prev->middle == temp)
 				prev->middle = NULL;
 			if (prev->left == temp)
@@ -272,7 +286,7 @@ void TST<T>::removeMin(NodeT<T> *root, NodeT<T> *prev, const T& data) {
 		}
 	// this is the case where there are no subtrees
 	} else {
-		//cout << "came in here" << endl;
+		cout << "came in here" << endl;
 		if (root->maxSet) {
 			root->min = root->max;
 			root->maxSet = false;
@@ -329,9 +343,8 @@ template <class T>
 bool TST<T>::remove(const T& element)
 {
 	//cout << "in the remove function" << endl;
-	bool found = find(element);
 
-	if(!found) {
+	if(!find(element)) {
 		return false;
 	} else {
 			head = removeHelper(head, element);
