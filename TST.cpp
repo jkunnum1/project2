@@ -297,7 +297,8 @@ NodeT<T> *TST<T>::removeHelper(NodeT<T> *root, const T& data)
 	}
 	NodeT<T> *prev;
 	NodeT<T> *removeNode = root;
-	// removeNode will point to the node which holds the value we want to remove
+
+	// // removeNode will point to the node which holds the value we want to remove
 	while (removeNode->min != data && removeNode->max !=data) {
 		prev = removeNode;
 		if (removeNode->min > data)
@@ -328,35 +329,65 @@ template <class T>
 bool TST<T>::remove(const T& element)
 {
 	//cout << "in the remove function" << endl;
-	head = removeHelper(head, element);
+	bool found = find(element);
 
-  	return true;
+	if(!found) {
+		return false;
+	} else {
+			head = removeHelper(head, element);
+	}
+
+  return true;
 }
 
 
 template <class T>
 bool TST<T>::find(const T& data) const {
-	//cout << "in the find function" << endl;
+	cout << "in the find function" << endl;
+	bool found = false;
+
 	if(head == NULL) {
 		//cout << "root is null" << endl;
 		return false;
-	}
-	NodeT<T> *root = head;
-	while (root->min != data && root->max !=data) {
-		if (root->min > data)
-			root = root->left;
-		else if (data > (root->min) && (root->maxSet) && data < (root->max))
-			root = root->middle;
-		else if ((root->maxSet) && data > (root->max))
-			root = root->right;
-		else {
-			//cout << "the value was not found" << endl;
-			return true;
+	} else {
+
+		NodeT<T> *root = head;
+
+		while(root){
+			if (root->min > data)
+				root = root->left;
+			else if (data > (root->min) && (root->maxSet) && data < (root->max))
+				root = root->middle;
+			else if ((root->maxSet) && data > (root->max))
+				root = root->right;
+			else if(root->min == data || root->max == data) {
+				found = true;
+				break;
+			} else {
+				cout << "Node was not found." << endl;
+				break;
+			}
 		}
 
 	}
+
+	return found;
+
+	// while (root->min != data && root->max !=data) {
+	// 	if (root->min > data)
+	// 		root = root->left;
+	// 	else if (data > (root->min) && (root->maxSet) && data < (root->max))
+	// 		root = root->middle;
+	// 	else if ((root->maxSet) && data > (root->max))
+	// 		root = root->right;
+	// 	else {
+	// 		cout << "the value was not found" << endl;
+	// 		return false;
+	// 	}
+	//
+	// }
 	//cout << "the value was found" << endl;
-	return true;
+	//return found;
 }
 
 
